@@ -672,7 +672,7 @@ function WebSqlPouch(opts, callback) {
     var limit = 'limit' in opts ? opts.limit : -1;
     var offset = 'skip' in opts ? opts.skip : 0;
     var inclusiveEnd = opts.inclusive_end !== false;
-    
+
     var sqlArgs = [];
     var criteria = [];
     var keyChunks = [];
@@ -691,7 +691,7 @@ function WebSqlPouch(opts, callback) {
           keyChunks.push(chunk);
         }
       }
-        
+
     } else if (key !== false) {
       criteria.push(DOC_STORE + '.id = ?');
       sqlArgs.push(key);
@@ -849,7 +849,7 @@ function WebSqlPouch(opts, callback) {
 
       }
 
-      
+
     }, websqlError(callback), function () {
       var returnVal = {
         total_rows: totalRows,
@@ -1158,6 +1158,7 @@ function WebSqlPouch(opts, callback) {
         LOCAL_STORE, ATTACH_AND_SEQ_STORE];
       stores.forEach(function (store) {
         tx.executeSql('DROP TABLE IF EXISTS ' + store, []);
+        tx.Close();
       });
     }, websqlError(callback), function () {
       if (hasLocalStorage()) {
